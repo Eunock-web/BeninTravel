@@ -1,10 +1,10 @@
 import Button from "./Button";
 
 interface CardInterface{
-    voyageImage: String,
-    voyageTitre: String,
-    voyageDescription: String,
-    voyagePrix: BigInteger
+    voyageImage: string,
+    voyageTitre: string,
+    voyageDescription: string,
+    voyagePrix: number
 }
 
 function Card( {voyageTitre, voyageDescription, voyageImage, voyagePrix} : CardInterface ) {
