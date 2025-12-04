@@ -10,11 +10,11 @@ interface CardInterface{
 function Card( {voyageTitre, voyageDescription, voyageImage, voyagePrix} : CardInterface ) {
     return (
         <>
-            <div className=" border border-gray-400 rounded-xl ">
+            <div className=" border border-gray-400 rounded-xl w-[25vw] ">
                 <div className=" border-b  hover:cursor-pointer  ">
-                    <img src={voyageImage} alt="" className=" w-[25vw] h-[40vh] aspect-square object-cover border border-neutral rounded-sm " />
+                    <img src={voyageImage} alt="" className=" aspect-square object-cover border border-neutral rounded-sm  " />
                 </div>
-                <div className=" flex flex-col gap-3 p-3 ">
+                <div className=" flex flex-col gap-3 p-3  ">
                     <div className=" flex flex-col gap-2 ">
                         <h1 className=" text-xl  "> {voyageTitre} </h1>
                         <p> {voyageDescription} </p>
@@ -26,7 +26,7 @@ function Card( {voyageTitre, voyageDescription, voyageImage, voyagePrix} : CardI
                         </div>
                         <div className=" flex flex-row justify-between">
                             <p> <span className=""> $ {voyagePrix} </span> <span className=""> /person </span> </p>
-                            <Button className="" > View Details </Button>
+                            <Button className="" > View Detail </Button>
                         </div>
                     </div>
                 </div>

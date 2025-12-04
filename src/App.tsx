@@ -1,28 +1,16 @@
 import './App.css'
-import Card from './components/Utils/Card'
-
+import { useRoutes } from 'react-router-dom'
+import AppRoutes from './routes'
 function App() {
+  const elements = useRoutes(AppRoutes);
+  console.log('useRoutes elements:', elements);
 
   return (
     <>
       <div className=''>
-
-      <div className=' grid grid-cols-3 '>
-          <div>
-          <Card voyageTitre=' Envole ' voyageDescription='Voyage pour Bamako' voyageImage=' src\images\One Piece - manga wallpaper.jfif ' voyagePrix={1500} />
-          </div>
-
-          <div>
-            <Card voyageTitre=' Envole ' voyageDescription='Voyage pour Bamako' voyageImage=' src\images\One Piece - manga wallpaper.jfif ' voyagePrix={1500} />
-          </div>
-
-          <div>
-            <Card voyageTitre=' Envole ' voyageDescription='Voyage pour Bamako' voyageImage=' src\images\One Piece - manga wallpaper.jfif ' voyagePrix={1500} />
-          </div>
-          
-        </div>
-
-        
+          <main>
+            { elements }
+          </main>
       </div>
     </>
   )

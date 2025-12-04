@@ -8,7 +8,7 @@ function Button({ className, children }: ButtonInterface) {
     return (
         <>
             <div>
-                <button className={ " btn bg-green-400 " + className }> {children} </button>
+                <button className={ " btn " + className }> {children} </button>
             </div>
         </>
     )
