@@ -1,4 +1,5 @@
 import Header from "./Header"
+import Main from "./Main"
 
 
 function Home(){
@@ -6,6 +7,7 @@ function Home(){
         <>
         <div>
             <Header />
+            <Main />
         </div>
         </>
     )
