@@ -26,7 +26,7 @@ function Card( {voyageTitre, voyageDescription, voyageImage, voyagePrix} : CardI
                         </div>
                         <div className=" flex flex-row justify-between">
                             <p> <span className=""> $ {voyagePrix} </span> <span className=""> /person </span> </p>
-                            <Button className="" > View Detail </Button>
+                            <Button className="" > View Details </Button>
                         </div>
                     </div>
                 </div>
