@@ -5,7 +5,7 @@ import NavBar from "../../Utils/NavBar"
 function Header(){
     return (
         <div className=" mx-auto flex flex-col  gap-4 ">
-            <NavBar />
+            <NavBar  />
 
         <div className=" bg-[url(https://lh3.googleusercontent.com/aida-public/AB6AXuB7Zsk12TycK06936zbD1tp0U_cMxdyTifnM8UTwgasOjMNYS17Lc0oK9-Mrg0oN6gAHV7ea7j7f2732lV7jbmP_5QHwyH-xx62rik85IJIJCHE7DH4DPsQQQsX2OkfAFHdZ87pK2d-dfgnb-j7TQOSo0MYnHFP3bp9ZsKpX8NIaLLmhyLAgAzC_RD9RLkbv1hv5USHmqgRTnW1FpxScJqCQ6Ljam559hyHv_4jwMZP2YBPhy1Fy0sOJJfRTSZp7D-UCB-1XXtOTkth)] w-full bg-cover  lg:h-[60vh] flex flex-col justify-center items-center gap-3">
             <div className=" flex flex-col justify-center items-center p-2 gap-6 mx-4 md:mx-2 w-[85vw]  ">

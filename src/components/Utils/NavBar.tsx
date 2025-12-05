@@ -25,7 +25,7 @@ const LinkChemains = [
 function NavBar(){
     return (
         <>
-            <div className=" w-full flex flex-row  justify-between items-center p-2 mx-auto ">
+            <div className=" w-full flex flex-row  justify-between items-center p-2 mx-auto">
                 <div className=" flex flex-row  items-center gap-3 ">
                     <Compass size={ 30 } className=" text-blue-600 " />  
                     <h1 className=" text-2xl  font-medium "> BeninTravel </h1>                  
