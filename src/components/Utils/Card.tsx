@@ -1,5 +1,5 @@
 import Button from "./Button";
-
+import { Star } from "lucide-react";
 interface CardInterface{
     voyageImage?: string,
     voyageTitre?: string,
@@ -22,9 +22,20 @@ function Card( {voyageTitre, voyageDescription, voyageImage, voyagePrix} : CardI
                 
                 <div className="flex flex-col gap-5 p-4">
                     
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col gap-3">
                         <h1 className="text-xl font-extrabold text-gray-900 truncate"> {voyageTitre} </h1>
                         <p className="text-sm font-normal text-gray-500 line-clamp-2"> {voyageDescription} </p>
+                    </div>
+
+                    <div className="flex flex-row gap-2">
+                        <div className=" flex flex-row ">
+                            <Star size={ 20 } className=" text-amber-400 " />
+                            <Star size={ 20 } className=" text-amber-400 " />
+                            <Star size={ 20 } className=" text-amber-400 " />
+                            <Star size={ 20 } className=" text-amber-400 " />
+                            <Star size={ 20 } className=" text-amber-400 " />
+                        </div>
+                    <p className=" text-gray-400 "> (75) </p>
                     </div>
 
                     <div className="flex flex-row justify-between items-center pt-2 border-t border-gray-100">

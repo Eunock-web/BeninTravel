@@ -14,7 +14,7 @@ function Header(){
                     <h2 className=" font-body text-base md:text-lg text-center text-white "> Explore ancient kingdoms, vibrant markets, and stunning coastlines.</h2>
                 </div>
 
-                <div className=" border border-white/10 bg-white/10 rounded-xl p-13 w-full   ">
+                <div className=" border border-white/10 bg-white/10 rounded-xl p-13 lg:w-full   ">
                     <form  className=" grid md:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 ">
                         <div className=" flex flex-col gap-2 ">
                             <label htmlFor="destination" className=" text-white "> Destination </label>
