@@ -18,10 +18,10 @@ const AppRoutes : RouteObject[] =[
         element : <Deals />
     },
 
-    // {
-    //     path : '/about',
-    //     element : <About />
-    // },
+    {
+        path : '/about',
+        element : <About />
+    },
 
     {
         path : '/shop',

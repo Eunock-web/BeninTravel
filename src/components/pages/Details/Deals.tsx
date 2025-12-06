@@ -1,9 +1,12 @@
+import AvisCard from "./AvisCard"
 
 
 function Deals(){
     return (
         <div>
-            <h1> Page Deals </h1>
+            
+            <AvisCard />
+
         </div>
     )
 }

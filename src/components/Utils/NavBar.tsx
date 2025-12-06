@@ -27,8 +27,10 @@ function NavBar(){
         <>
             <div className=" w-full flex flex-row  justify-between items-center p-2 mx-auto">
                 <div className=" flex flex-row  items-center gap-3 ">
-                    <Compass size={ 30 } className=" text-blue-600 " />  
-                    <h1 className=" text-2xl  font-medium "> BeninTravel </h1>                  
+                    <Link to="/" className=" flex flex-row " >
+                        <Compass size={ 30 } className=" text-blue-600 " />  
+                        <h1 className=" text-2xl  font-medium "> BeninTravel </h1> 
+                    </Link>                 
                 </div>
                 <div>
                     <nav className="hidden md:flex md:gap-6 lg:gap-15 ">
@@ -38,7 +40,7 @@ function NavBar(){
                     </nav>
                 </div>
                 <div className=" border border-gray-100 bg-gray-100 rounded-full p-2 items-center hover:cursor-pointer  ">
-                    <ShoppingCart size={ 30 } className=" text-black  " />                   
+                     <ShoppingCart size={ 30 } className=" text-black   " to="/" />                   
                 </div>
             </div>
         </>
