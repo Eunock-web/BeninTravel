@@ -22,7 +22,7 @@ const Avis = [
 
 function AvisCard(){
     return (
-        <div className=" border border-gray-200 rounded-xl  ">
+        <div className=" border border-gray-200 rounded-xl p-3  ">
             <div className="flex flex-row gap-2 border-b border-gray-300 py-3 ">
                 <div className=" flex flex-row ">
                     <Star size={ 20 } className=" text-amber-500" />
