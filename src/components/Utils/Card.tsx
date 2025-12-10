@@ -1,13 +1,14 @@
 import Button from "./Button";
 import { Star } from "lucide-react";
 interface CardInterface{
-    voyageImage?: string,
-    voyageTitre?: string,
-    voyageDescription?: string,
-    voyagePrix?: number
+    voyageImage?: string;
+    voyageTitre?: string;
+    voyageDescription?: string;
+    voyagePrix?: number;
+    onSelect?: () => void;
 }
 
-function Card( {voyageTitre, voyageDescription, voyageImage, voyagePrix} : CardInterface ) {
+function Card( {voyageTitre, voyageDescription, voyageImage, voyagePrix, onSelect} : CardInterface ) {
     return (
         <div className="p-3">
             <div className="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden max-w-[800%] mx-auto transition-all duration-300 hover:shadow-xl ">
@@ -41,12 +42,12 @@ function Card( {voyageTitre, voyageDescription, voyageImage, voyagePrix} : CardI
                     <div className="flex flex-row justify-between items-center pt-2 border-t border-gray-100">
                         
                         <p className="flex items-end gap-1"> 
-                            <span className="font-bold text-2xl"> ${voyagePrix} </span> 
-                            <span className="text-sm text-gray-500"> /person </span> 
+                            <span className="font-bold text-2xl"> {voyagePrix?.toLocaleString()} FCFA </span> 
+                            <span className="text-sm text-gray-500"> /personne </span> 
                         </p>
 
-                        <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors"> 
-                            View Details 
+                        <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors" onClick={onSelect}> 
+                            Voir les détails 
                         </Button>
                     </div>
                 </div>

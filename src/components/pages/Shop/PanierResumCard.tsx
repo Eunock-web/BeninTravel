@@ -1,7 +1,12 @@
-import Button from "../../Utils/Button"
+import Button from "../../Utils/Button";
 
+type PanierResumeProps = {
+    subTotal: number;
+    taxes?: number;
+};
 
-function PanierResumCard(){
+function PanierResumCard({ subTotal, taxes = 0 }: PanierResumeProps){
+    const total = subTotal + taxes;
     return (
         <div className=" grid grid-cols-1 gap-3 border border-gray-50 shadow-sm px-3 py-15  rounded-xl">
             <h1 className=" font-bold text-xl "> Résumé </h1>
@@ -9,18 +14,18 @@ function PanierResumCard(){
             <div className=" flex flex-col gap-4 border-b border-gray-400  ">
                 <div className=" flex flex-row justify-between ">
                     <p className=" font-light "> Sous total </p>
-                    <p className=" font-light "> 3300 </p>
+                    <p className=" font-light "> {subTotal.toLocaleString()} FCFA </p>
                 </div>
 
                 <div className=" flex flex-row justify-between mb-2 ">
-                    <p className=" font-light "> Sous total </p>
-                    <p className=" font-light "> 3300 </p>
+                    <p className=" font-light "> Taxes & frais </p>
+                    <p className=" font-light "> {taxes.toLocaleString()} FCFA </p>
                 </div>
             </div>
             
             <div className=" flex flex-row justify-between mb-2.5 ">
                 <h1 className=" font-bold  "> Total </h1>
-                <h1 className=" font-semibold text-sm "> 3450 </h1>
+                <h1 className=" font-semibold text-sm "> {total.toLocaleString()} FCFA </h1>
             </div>
             
             <div className=" flex flex-col gap-5 ">

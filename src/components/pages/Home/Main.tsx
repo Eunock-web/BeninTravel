@@ -1,89 +1,178 @@
-import Card from "../../Utils/Card";
+import { useNavigate } from "react-router-dom";
 import { Star } from "lucide-react";
-
-const voyagesCulturels = [
-  {
-    voyageTitre: "Palais Royaux d'Abomey",
-    voyageDescription: "Découvrez l'histoire fascinante du royaume du Dahomey à travers ses palais historiques classés au patrimoine mondial de l'UNESCO.",
-    voyagePrix: 45000,
-    voyageImage: "src/images/One Piece - manga wallpaper.jfif",
-    rang: <Star size={ 20 } className=" text-blue-800 " />,
-    nombreRang: 127
-  },
-  {
-    voyageTitre: "Cité Lacustre de Ganvié",
-    voyageDescription: "Explorez la Venise de l'Afrique, un village entièrement construit sur pilotis au milieu du lac Nokoué.",
-    voyagePrix: 35000,
-    voyageImage: "src/images/One Piece - manga wallpaper.jfif",
-    rang: <Star size={ 20 } className=" text-blue-800 " />,
-    nombreRang: 203
-  },
-  {
-    voyageTitre: "Temple des Pythons à Ouidah",
-    voyageDescription: "Vivez une expérience unique dans ce temple sacré abritant des dizaines de pythons royaux vénérés.",
-    voyagePrix: 25000,
-    voyageImage: "src/images/One Piece - manga wallpaper.jfif",
-    rang: <Star size={ 20 } className=" text-blue-800 " />,
-    nombreRang: 156
-  }
-];
+import Card from "../../Utils/Card";
+import { useVoyageContext } from "../../../context/VoyageContext";
 
 function Main() {
+    const navigate = useNavigate();
+    const {
+        filteredVoyages,
+        filters,
+        priceBounds,
+        availableTypes,
+        toggleType,
+        updateFilter,
+        selectVoyage,
+        resetFilters,
+    } = useVoyageContext();
+
+    const handleSelect = (id: number) => {
+        selectVoyage(id);
+        navigate("/deals");
+    };
+
     return (
         <div className="max-w-8xl mx-auto p-4 md:p-8 lg:grid lg:grid-cols-4 lg:gap-8 mb-30">
-            
-            <section className="mb-6 lg:mb-0 lg:col-span-1">
-
-                <h1 className="text-2xl font-semibold mb-4">Filters</h1>
-                <div className=" grid grid-cols-1 lg:grid-cols-1 gap-8 ">
-                    <div className=" flex flex-col gap-2 ">
-                        <label htmlFor=" price " className=" text-lg font-bold "> Price Range </label>
-                        <input type="range" className="" />
-                    </div>
-
-                    <div className=" flex flex-col gap-2 ">
-                        <label htmlFor=" price " className="text-lg font-bold"> Travel Type </label>
-                        <div className="flex flex-col gap-3">
-                            <div className=" flex flex-row gap-3">
-                                <input type="checkbox" className="" />
-                                <label htmlFor=""> Adventure </label>
-                            </div>
-                            
-                            <div className=" flex flex-row gap-3">
-                                <input type="checkbox" className="" />
-                                <label htmlFor=""> Cultural </label>
-                            </div>
-
-                            <div className=" flex flex-row gap-3">
-                                <input type="checkbox" className="" />
-                                <label htmlFor=""> Beach </label>
-                            </div>    
-                        </div>
-                    </div>
-
-                    <div className=" flex flex-col gap-2 ">
-                        <label htmlFor=" rang " className="text-lg font-bold"> Customer Rating </label>
-                        <div className=" flex flex-row ">
-                            <Star size={ 20 } className=" text-blue-800 " />
-                            <Star size={ 20 } className=" text-blue-800 " />
-                            <Star size={ 20 } className=" text-blue-800 " />
-                            <Star size={ 20 } className=" text-blue-800" />
-                            <Star size={ 20 } className=" text-gray-400" />
-                        </div>
-                    </div>
+            <section className="mb-6 lg:mb-0 lg:col-span-1 space-y-6">
+                <div className="flex items-center justify-between">
+                    <h1 className="text-2xl font-semibold">Filtres</h1>
+                    <button
+                        className="text-sm text-blue-700 underline"
+                        onClick={resetFilters}
+                    >
+                        Réinitialiser
+                    </button>
                 </div>
 
+                <div className="grid grid-cols-1 gap-6">
+                    <div className="flex flex-col gap-2">
+                        <label className="text-lg font-bold">Destination / Mot-clé</label>
+                        <input
+                            type="search"
+                            value={filters.search}
+                            onChange={(e) => updateFilter("search", e.target.value)}
+                            placeholder="Ouidah, plage, safari..."
+                            className="p-3 rounded-lg border border-gray-200"
+                        />
+                    </div>
+
+                    <div className="flex flex-col gap-3">
+                        <label className="text-lg font-bold">Budget (FCFA)</label>
+                        <div className="flex flex-col gap-2">
+                            <div className="flex gap-3">
+                                <input
+                                    type="number"
+                                    min={priceBounds[0]}
+                                    max={filters.price[1]}
+                                    value={filters.price[0]}
+                                    onChange={(e) =>
+                                        updateFilter("price", [
+                                            Number(e.target.value),
+                                            filters.price[1],
+                                        ])
+                                    }
+                                    className="w-1/2 p-2 rounded border border-gray-200"
+                                />
+                                <input
+                                    type="number"
+                                    min={filters.price[0]}
+                                    max={priceBounds[1]}
+                                    value={filters.price[1]}
+                                    onChange={(e) =>
+                                        updateFilter("price", [
+                                            filters.price[0],
+                                            Number(e.target.value),
+                                        ])
+                                    }
+                                    className="w-1/2 p-2 rounded border border-gray-200"
+                                />
+                            </div>
+                            <input
+                                type="range"
+                                min={priceBounds[0]}
+                                max={priceBounds[1]}
+                                value={filters.price[1]}
+                                onChange={(e) =>
+                                    updateFilter("price", [
+                                        filters.price[0],
+                                        Number(e.target.value),
+                                    ])
+                                }
+                                className="w-full"
+                            />
+                            <p className="text-sm text-gray-500">
+                                {filters.price[0].toLocaleString()} - {filters.price[1].toLocaleString()} FCFA
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-3">
+                        <label className="text-lg font-bold">Type de voyage</label>
+                        <div className="flex flex-col gap-2">
+                            {availableTypes.map((type) => (
+                                <label key={type} className="flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        checked={filters.types.has(type)}
+                                        onChange={() => toggleType(type)}
+                                    />
+                                    <span>{type}</span>
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-3">
+                        <label className="text-lg font-bold">Note minimale</label>
+                        <div className="flex items-center gap-3">
+                            <input
+                                type="range"
+                                min={0}
+                                max={5}
+                                step={0.5}
+                                value={filters.minRating}
+                                onChange={(e) => updateFilter("minRating", Number(e.target.value))}
+                                className="w-full"
+                            />
+                            <span className="text-sm font-medium">{filters.minRating.toFixed(1)}+</span>
+                        </div>
+                        <div className="flex flex-row">
+                            {Array.from({ length: 5 }).map((_, idx) => (
+                                <Star
+                                    key={idx}
+                                    size={20}
+                                    className={idx < Math.round(filters.minRating) ? "text-blue-800" : "text-gray-300"}
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <label className="text-lg font-bold">Voyageurs minimum</label>
+                        <input
+                            type="number"
+                            min={1}
+                            value={filters.minTravelers}
+                            onChange={(e) => updateFilter("minTravelers", Number(e.target.value))}
+                            className="p-3 rounded-lg border border-gray-200"
+                        />
+                    </div>
+                </div>
             </section>
 
-            <section className="lg:col-span-3"> 
+            <section className="lg:col-span-3">
+                <div className="flex items-center justify-between mb-4">
+                    <p className="text-sm text-gray-600">
+                        {filteredVoyages.length} offre(s) correspondent à vos filtres
+                    </p>
+                    <button
+                        className="text-sm text-blue-700 underline"
+                        onClick={() => selectVoyage(filteredVoyages[0]?.IdVoyage ?? 0)}
+                    >
+                        Prévisualiser la première offre
+                    </button>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-                    
-                    {
-                        voyagesCulturels.map((elts,index) =>
-                            <Card voyageTitre= { elts.voyageTitre} voyageDescription={elts.voyageDescription} voyagePrix={elts.voyagePrix} voyageImage={elts.voyageImage} key={index} />                    
-                        )
-                    }
-
+                    {filteredVoyages.map((elts) => (
+                        <Card
+                            voyageTitre={elts.Nom}
+                            voyageDescription={elts.Description}
+                            voyagePrix={elts.Prix}
+                            voyageImage={elts.GaleriesDImages[0]}
+                            key={elts.IdVoyage}
+                            onSelect={() => handleSelect(elts.IdVoyage)}
+                        />
+                    ))}
                 </div>
             </section>
         </div>

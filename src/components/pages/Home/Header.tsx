@@ -1,8 +1,11 @@
 import Button from "../../Utils/Button"
 import NavBar from "../../Utils/NavBar"
+import { useVoyageContext } from "../../../context/VoyageContext"
 
 
 function Header(){
+    const { updateFilter } = useVoyageContext();
+
     return (
         <div className=" mx-auto flex flex-col  gap-4 ">
             <NavBar  />
@@ -15,10 +18,15 @@ function Header(){
                 </div>
 
                 <div className=" border border-white/10 bg-white/10 rounded-xl p-13 lg:w-full   ">
-                    <form  className=" grid md:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 ">
+                    <form  className=" grid md:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 " onSubmit={(e) => e.preventDefault()}>
                         <div className=" flex flex-col gap-2 ">
                             <label htmlFor="destination" className=" text-white "> Destination </label>
-                            <input type="search" placeholder=" Enter your destination e.g. Ouidah " className=" p-3 text-white rounded-lg ring ring-white " />
+                            <input
+                                type="search"
+                                placeholder=" Enter your destination e.g. Ouidah "
+                                onChange={(e) => updateFilter("search", e.target.value)}
+                                className=" p-3 text-white rounded-lg ring ring-white "
+                            />
                         </div>
 
                         <div className=" flex flex-col gap-2 ">

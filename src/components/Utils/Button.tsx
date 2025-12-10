@@ -1,14 +1,19 @@
 
-interface ButtonInterface {
-    className: String,
-    children: String
-}
+import type { ButtonHTMLAttributes, PropsWithChildren } from "react";
 
-function Button({ className, children }: ButtonInterface) {
+type ButtonInterface = PropsWithChildren & {
+    className?: string;
+    onClick?: ButtonHTMLAttributes<HTMLButtonElement>["onClick"];
+    type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
+};
+
+function Button({ className, children, onClick, type }: ButtonInterface) {
     return (
         <>
             <div>
-                <button className={ " btn " + className }> {children} </button>
+                <button className={ " btn " + (className ?? "") } onClick={onClick} type={type}>
+                    {children}
+                </button>
             </div>
         </>
     )

@@ -4,7 +4,7 @@ import Deals from "./components/pages/Details/Deals";
 import Shop from "./components/pages/Shop/Shop";
 import ConfirmCommande from "./components/pages/ConfirmCommande";
 import About from "./components/pages/About/About";
-
+// import ProductFilter from "./components/Essai";
 
 const AppRoutes : RouteObject[] =[
 
@@ -31,7 +31,12 @@ const AppRoutes : RouteObject[] =[
     {
         path : "/confirm",
         element : <ConfirmCommande />
-    }
+    },
+
+    // {
+    //     path : "/essai",
+    //     element : <ProductFilter />
+    // },
 
 ] 
 
