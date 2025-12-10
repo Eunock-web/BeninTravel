@@ -5,9 +5,10 @@ import { useVoyageContext } from "../../../context/VoyageContext";
 
 type ShopProps = {
     hideNav?: boolean;
+    onClose?: () => void;
 };
 
-function Shop({ hideNav }: ShopProps){
+function Shop({ hideNav, onClose }: ShopProps){
     const { cartItems } = useVoyageContext();
     const subTotal = cartItems.reduce((acc, item) => acc + item.unitPrice * item.travelers, 0);
 
@@ -34,7 +35,11 @@ function Shop({ hideNav }: ShopProps){
                     ))}
                 </div>
                 <div className=" ">
-                    <PanierResumCard subTotal={subTotal} taxes={Math.round(subTotal * 0.05)}  />
+                    <PanierResumCard
+                        subTotal={subTotal}
+                        taxes={Math.round(subTotal * 0.05)}
+                        onClose={onClose}
+                    />
                 </div>
             </div>
         </div>

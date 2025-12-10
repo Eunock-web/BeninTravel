@@ -2,6 +2,7 @@ import { Check } from "lucide-react";
 import Button from "../Utils/Button";
 import { useVoyageContext } from "../../context/VoyageContext";
 import ShopModal from "./Shop/ShopModal";
+import { Link } from "react-router-dom"
 
 function ConfirmCommande(){
     const { reservation } = useVoyageContext();
@@ -29,7 +30,9 @@ function ConfirmCommande(){
             </div>
 
             <div>
-                <Button className=" bg-blue-500 text-white items-center w-full p-4 rounded-sm " > Retour à l’accueil </Button>
+                <Link to="/">
+                    <Button className=" bg-blue-500 text-white items-center w-full p-4 rounded-sm hover:cursor-pointer" > Retour à l’accueil </Button>                
+                </Link>
             </div>
         </div>
         <ShopModal />

@@ -7,15 +7,21 @@ function ShopModal() {
     if (!isShopOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-xl shadow-2xl max-h-[90vh] overflow-y-auto w-full max-w-5xl relative">
+        <div
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+            onClick={closeShop}
+        >
+            <div
+                className="bg-white rounded-xl shadow-2xl max-h-[90vh] overflow-y-auto w-full max-w-5xl relative"
+                onClick={(e) => e.stopPropagation()}
+            >
                 <button
                     onClick={closeShop}
                     className="absolute top-3 right-3 text-gray-600 hover:text-black"
                 >
                     Fermer
                 </button>
-                <Shop hideNav />
+                <Shop hideNav onClose={closeShop} />
             </div>
         </div>
     );
