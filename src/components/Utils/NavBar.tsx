@@ -5,19 +5,19 @@ const LinkChemains = [
     {
         id: 1,
         link : "/",
-        children : "Home"
+        children : "Accueil"
     },
 
     {
         id:2,
         link : "/deals",
-        children : "Deals"
+        children : "Offres"
     },
 
     {
         id:3,
         link : "/about",
-        children : "About Us"
+        children : "À propos"
     }
     
 ] 
@@ -40,7 +40,7 @@ function NavBar(){
                     </nav>
                 </div>
                 <div className=" border border-gray-100 bg-gray-100 rounded-full p-2 items-center hover:cursor-pointer  ">
-                     <Link to="/shop"> 
+                     <Link to="/shop" aria-label="Mon panier"> 
                         <ShoppingCart size={ 30 } className=" text-black   " />
                     </Link>                   
                 </div>

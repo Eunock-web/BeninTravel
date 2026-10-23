@@ -1,22 +1,25 @@
 import Button from "./Button";
 import { Star } from "lucide-react";
+import SafeImage from "./SafeImage";
 interface CardInterface{
     voyageImage?: string;
     voyageTitre?: string;
     voyageDescription?: string;
     voyagePrix?: number;
+    voyageNote?: number;
+    voyageAvis?: number;
     onSelect?: () => void;
 }
 
-function Card( {voyageTitre, voyageDescription, voyageImage, voyagePrix, onSelect} : CardInterface ) {
+function Card( {voyageTitre, voyageDescription, voyageImage, voyagePrix, voyageNote = 0, voyageAvis = 0, onSelect} : CardInterface ) {
     return (
         <div className="p-3">
             <div className="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden max-w-[800%] mx-auto transition-all duration-300 hover:shadow-xl ">
                 
                 <div className="relative overflow-hidden">
-                    <img 
+                    <SafeImage 
                         src={voyageImage} 
-                        alt={voyageTitre} 
+                        alt={voyageTitre ?? "Voyage"} 
                         className="w-full aspect-square object-cover transition-transform duration-500 hover:scale-105 hover:cursor-pointer" 
                     />
                 </div>
@@ -29,14 +32,16 @@ function Card( {voyageTitre, voyageDescription, voyageImage, voyagePrix, onSelec
                     </div>
 
                     <div className="flex flex-row gap-2">
-                        <div className=" flex flex-row ">
-                            <Star size={ 20 } className=" text-amber-400 " />
-                            <Star size={ 20 } className=" text-amber-400 " />
-                            <Star size={ 20 } className=" text-amber-400 " />
-                            <Star size={ 20 } className=" text-amber-400 " />
-                            <Star size={ 20 } className=" text-amber-400 " />
+                        <div className=" flex flex-row " aria-label={`Note ${voyageNote} sur 5`}>
+                            {Array.from({ length: 5 }).map((_, idx) => (
+                                <Star
+                                    key={idx}
+                                    size={ 20 }
+                                    className={ idx < Math.round(voyageNote) ? " text-amber-400 fill-amber-400 " : " text-gray-300 " }
+                                />
+                            ))}
                         </div>
-                    <p className=" text-gray-400 "> (75) </p>
+                        <p className=" text-gray-400 "> ({voyageAvis}) </p>
                     </div>
 
                     <div className="flex flex-row justify-between items-center pt-2 border-t border-gray-100">

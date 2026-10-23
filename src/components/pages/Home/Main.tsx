@@ -36,8 +36,9 @@ function Main() {
 
                 <div className="grid grid-cols-1 gap-6">
                     <div className="flex flex-col gap-2">
-                        <label className="text-lg font-bold">Destination / Mot-clé</label>
+                        <label htmlFor="filtre-recherche" className="text-lg font-bold">Destination / Mot-clé</label>
                         <input
+                            id="filtre-recherche"
                             type="search"
                             value={filters.search}
                             onChange={(e) => updateFilter("search", e.target.value)}
@@ -138,29 +139,29 @@ function Main() {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <label className="text-lg font-bold">Voyageurs minimum</label>
+                        <label htmlFor="filtre-voyageurs" className="text-lg font-bold">Voyageurs minimum</label>
                         <input
+                            id="filtre-voyageurs"
                             type="number"
                             min={1}
                             value={filters.minTravelers}
-                            onChange={(e) => updateFilter("minTravelers", Number(e.target.value))}
+                            onChange={(e) => updateFilter("minTravelers", Math.max(1, Number(e.target.value) || 1))}
                             className="p-3 rounded-lg border border-gray-200"
                         />
                     </div>
                 </div>
             </section>
 
-            <section className="lg:col-span-3">
+            <section id="resultats" className="lg:col-span-3 scroll-mt-4">
                 <div className="flex items-center justify-between mb-4">
                     <p className="text-sm text-gray-600">
                         {filteredVoyages.length} offre(s) correspondent à vos filtres
                     </p>
-                    <button
-                        className="text-sm text-blue-700 underline"
-                        onClick={() => selectVoyage(filteredVoyages[0]?.IdVoyage ?? 0)}
-                    >
-                        Prévisualiser la première offre
-                    </button>
+                    {filteredVoyages.length === 0 && (
+                        <button className="text-sm text-blue-700 underline" onClick={resetFilters}>
+                            Réinitialiser les filtres
+                        </button>
+                    )}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
                     {filteredVoyages.map((elts) => (
@@ -168,6 +169,8 @@ function Main() {
                             voyageTitre={elts.Nom}
                             voyageDescription={elts.Description}
                             voyagePrix={elts.Prix}
+                            voyageNote={elts.rating}
+                            voyageAvis={elts.reviewCount}
                             voyageImage={elts.GaleriesDImages[0]}
                             key={elts.IdVoyage}
                             onSelect={() => handleSelect(elts.IdVoyage)}

@@ -2,16 +2,20 @@ import { Check } from "lucide-react";
 import Button from "../Utils/Button";
 import { useVoyageContext } from "../../context/VoyageContext";
 import ShopModal from "./Shop/ShopModal";
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 
 function ConfirmCommande(){
     const { reservation } = useVoyageContext();
+
+    if (!reservation.confirmed) {
+        return <Navigate to="/" replace />;
+    }
 
     return (
         <>
         <div className=" flex flex-col gap-8  rounded-xl p-10 md:justify-items-center-safe md:w-2xl min-h-screen ">
             <div className=" flex flex-col gap-3 items-center justify-center ">
-                <Check size={ 80 } className=" border border-red-400 bg-red-400 text-white p-3 rounded-full  "/>
+                <Check size={ 80 } className=" border border-green-500 bg-green-500 text-white p-3 rounded-full  "/>
                 <h1 className=" font-bold text-3xl text-sky-600  "> Réservation confirmée ! </h1>
                 <p className=" text-gray-500 font-light text-lg text-center ">
                     Votre voyage pour {reservation.voyage?.Destinations ?? reservation.voyage?.Nom} est réservé.
@@ -19,13 +23,16 @@ function ConfirmCommande(){
             </div>
 
             <div className=" flex flex-col justify-center items-center border border-gray-100 bg-gray-100 p-5 rounded-xl ">
-                <h1 className=" font-medium text-gray-600 text-2lg "> NUMÉRO DE RÉSERVATION </h1>
-                <h1 className=" font-bold text-3xl ">BN-8675309 </h1>
+                <h1 className=" font-medium text-gray-600 text-lg "> NUMÉRO DE RÉSERVATION </h1>
+                <h1 className=" font-bold text-3xl "> {reservation.bookingNumber} </h1>
                 <p className="text-gray-500 text-sm mt-2">
                     {reservation.departDate} → {reservation.returnDate} • {reservation.travelers} voyageur(s)
                 </p>
+                <p className="text-gray-500 text-sm mt-1">
+                    Sous-total : {reservation.subTotal.toLocaleString()} FCFA • Taxes et frais : {reservation.taxes.toLocaleString()} FCFA
+                </p>
                 <p className="text-gray-700 font-semibold mt-1">
-                    Total: {reservation.total.toLocaleString()} FCFA
+                    Total : {reservation.total.toLocaleString()} FCFA
                 </p>
             </div>
 

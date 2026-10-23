@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import { TAX_RATE } from "../../../constants";
 import NavBar from "../../Utils/NavBar";
 import Panier from "./Panier";
 import PanierResumCard from "./PanierResumCard";
@@ -9,7 +11,8 @@ type ShopProps = {
 };
 
 function Shop({ hideNav, onClose }: ShopProps){
-    const { cartItems } = useVoyageContext();
+    const { cartItems, removeFromCart } = useVoyageContext();
+    const navigate = useNavigate();
     const subTotal = cartItems.reduce((acc, item) => acc + item.unitPrice * item.travelers, 0);
 
     return (
@@ -31,14 +34,15 @@ function Shop({ hideNav, onClose }: ShopProps){
                             image={item.image}
                             departDate={item.departDate}
                             returnDate={item.returnDate}
+                            onRemove={() => removeFromCart(item.id)}
                         />
                     ))}
                 </div>
                 <div className=" ">
                     <PanierResumCard
                         subTotal={subTotal}
-                        taxes={Math.round(subTotal * 0.05)}
-                        onClose={onClose}
+                        taxes={Math.round(subTotal * TAX_RATE)}
+                        onClose={onClose ?? (() => navigate("/"))}
                     />
                 </div>
             </div>
