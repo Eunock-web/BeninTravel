@@ -1,3 +1,5 @@
+import { useState } from "react";
+import SafeImage from "../../Utils/SafeImage";
 import AvisCard from "./AvisCard";
 import Reservation from "./Reservation";
 import { CheckCircle } from "lucide-react"; 
@@ -6,6 +8,7 @@ import { useVoyageContext } from "../../../context/VoyageContext";
 function Deals() {
     const { selectedVoyage } = useVoyageContext();
     const images = selectedVoyage?.GaleriesDImages ?? [];
+    const [activeIndex, setActiveIndex] = useState(0);
     const inclusions = selectedVoyage?.Inclusions?.split(",").map((i) => i.trim()) ?? [];
 
     return (
@@ -23,12 +26,14 @@ function Deals() {
                         </p>
 
                         <div className="flex flex-col gap-4">
-                            <img src={images[0]} alt={selectedVoyage?.Nom} className="rounded-xl w-full object-cover aspect-video" />
+                            <SafeImage src={images[activeIndex] ?? images[0]} alt={selectedVoyage?.Nom ?? "Voyage"} className="rounded-xl w-full object-cover aspect-video" />
 
                             <div className="flex flex-row justify-between gap-3 overflow-x-auto pb-2">
                                 {images.map((img, index) =>
-                                    <img src={img} alt={`Aperçu ${index}`} key={img} 
-                                         className="w-25 h-25 rounded-lg object-cover shrink-0 hover:scale-105 transition-transform cursor-pointer" />
+                                    <button type="button" key={index} onClick={() => setActiveIndex(index)} className="shrink-0 p-0 border-0 bg-transparent">
+                                        <SafeImage src={img} alt={`Aperçu ${index + 1}`} fallbackLabel={`${index + 1}`}
+                                             className="w-25 h-25 rounded-lg object-cover hover:scale-105 transition-transform cursor-pointer" />
+                                    </button>
                                 )}
                             </div>
                         </div>
@@ -38,7 +43,7 @@ function Deals() {
                     <div className="flex flex-col gap-3">
                         <h2 className="font-bold text-2xl text-gray-800  pt-4">Description</h2>
                         <p className="text-gray-600 text-base font-normal leading-relaxed">
-                            {selectedVoyage?.Description}
+                            {selectedVoyage?.Description.replaceAll("**", "")}
                         </p>
                     </div>
 
@@ -60,7 +65,7 @@ function Deals() {
 
                     <div className="flex flex-col gap-4  pt-4">
                         <h2 className="font-bold text-2xl text-gray-800">Avis des clients</h2>
-                        <AvisCard />
+                        <AvisCard rating={selectedVoyage?.rating ?? 0} reviewCount={selectedVoyage?.reviewCount ?? 0} />
                     </div>
                 </div>
                 <div className="md:col-span-1 lg:col-span-2">
