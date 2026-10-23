@@ -1,73 +1,53 @@
-# React + TypeScript + Vite
+# BeninTravel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A travel-booking front end for trips across Benin: browse 20 curated offers, filter them, read the details and book a stay through a short reservation flow.
 
-Currently, two official plugins are available:
+**Live demo:** https://benin-travel-tau.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- **Search and filters** — keyword (offer name or destination), budget range in FCFA, trip type, minimum rating, minimum group size and earliest departure date.
+- **Offer pages** — gallery, description, inclusions and the average rating with its review count.
+- **Reservation form** — departure and return dates (no past dates, return after departure) and number of travelers (capped to the offer's group size), with a live price.
+- **Cart and confirmation** — a cart summary with taxes and fees (5 %), and a confirmation page with a generated booking number.
+- **Responsive** layout built mobile first.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech stack
 
-## Expanding the ESLint configuration
+React 19 · TypeScript · Vite 7 · Tailwind CSS 4 · React Router 7 · lucide-react
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+State is handled with React Context (`VoyageContext`) and a custom hook (`useVoyageFilters`). Offers are served from a local data file, so there is no backend: reservations live in memory and are lost on refresh.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev      # development server
+npm run build    # type-check and production build
+npm run lint     # ESLint
+npm run preview  # preview the production build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Project structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── VoyagesData.js          # the 20 offers
+├── constants.ts            # shared constants (tax rate)
+├── context/                # VoyageContext: offers, filters, reservation, cart
+├── hooks/                  # useVoyageFilters
+├── routes.tsx              # /, /deals, /about, /shop, /confirm
+└── components/
+    ├── Utils/              # Button, Card, NavBar, SafeImage
+    └── pages/              # Home, Details, Shop, About, ConfirmCommande
+```
+
+## Known limitations
+
+- Offer images are hot-linked from external sources; when one fails to load, a placeholder is shown instead of a broken image. Replacing them with files in `public/` would make the gallery reliable.
+- Customer reviews are not implemented yet; only the aggregated rating is displayed.
+- No payment or persistence — this is a front-end project.
+
+## Author
+
+Built by [Eunock Yvan Aïhounhin](https://github.com/Eunock-web).
