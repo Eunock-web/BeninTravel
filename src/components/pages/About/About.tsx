@@ -8,7 +8,7 @@ const Valeurs  = [
         id:1,
         icone: <Flower2 className=" border border-sky-200 bg-sky-200 p-3 w-15 h-15 rounded-full text-sky-700 " />,
         titre: "Authenticité",
-        description : "Nous privilégions les experiences locales et authentiques pour une immersion totale."
+        description : "Nous privilégions les expériences locales et authentiques pour une immersion totale."
     },
 
     {
@@ -22,7 +22,7 @@ const Valeurs  = [
         id:3,
         icone: <Heart className=" border border-sky-200 bg-sky-200 p-3 w-15 h-15 rounded-full text-sky-700 " />,
         titre: "Passion",
-        description : "Notre amour est le moteur de out ce que nous faisons."
+        description : "Notre amour est le moteur de tout ce que nous faisons."
     }
 ]
 
@@ -33,7 +33,7 @@ function About(){
             <NavBar />
 
                 <div className=" bg-[url(https://lh3.googleusercontent.com/aida-public/AB6AXuCONUNm68IgHvwYrCmYS5DFm3AmHDIJOludYMiCick7jd3_adtULJ7ARW-VHWDh_OCEDIR3N8EPwee1X_-3MOk0_35ufhpAayQLJFIf4C_NfTfjZWDYw-OYSKt1qaUY3LrDaiiGqIeLuyoDJ1Qg8c3AgvRLumhmX2RHnKg2x5VeXI_JM0P905derKk9RbMCxU5CrcfxAyUyrRjNRVwciiQUTJsJ284AsLExhE1grqM9gSYzZSsVtIpMLzITe2sDL780x9mo03qtz5dh)]  flex min-h-[480px] flex-col items-cente justify-center bg-cover bg-center bg-no-repeat p-4 mb-5" >
-                    <h1 className=" font-bold text-3xl text-white text-center "> A propos de Nous </h1>
+                    <h1 className=" font-bold text-3xl text-white text-center "> À propos de nous </h1>
                     <p className=" text-white text-light text-center text-lg  "> Votre porte d'entrée pour découvrir les merveilles authentiques et inoubliables du Bénin. </p>
                 </div>
 
@@ -42,7 +42,7 @@ function About(){
 
                 <div className=" flex flex-col justify-center items-center gap-3">
                     <h1 className=" text-sky-700 font-bold text-2xl "> Notre Mission </h1>
-                    <p className=" text-gray-500 text-base text-center "> Nous nous engageons à vous offir une experience de voyage authentique et inouliable au Benin. Notre mission est de simplifier la recherche et la reservation de voyages, tout en promouvant le riche patrimoine culturel et naturel du pays, en connectant les voyageurs curieux avec la véritable essence du Bénin.</p>
+                    <p className=" text-gray-500 text-base text-center "> Nous nous engageons à vous offrir une expérience de voyage authentique et inouliable au Benin. Notre mission est de simplifier la recherche et la reservation de voyages, tout en promouvant le riche patrimoine culturel et naturel du pays, en connectant les voyageurs curieux avec la véritable essence du Bénin.</p>
                 </div>
 
                 <div className=" flex flex-col gap-3 justify-center items-center ">
@@ -78,7 +78,7 @@ function About(){
     </div>
 </div>
                 <div className=" flex flex-col space-y-5 justify-center items-center  ">
-                    <h1 className=" font-bold text-2xl text-sky-700 "> Rencontrez l'Equipe </h1>
+                    <h1 className=" font-bold text-2xl text-sky-700 "> Rencontrez l'équipe </h1>
                     
                     <div className=" grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-50 ">
                         <div className=" flex flex-col gap-2 ">

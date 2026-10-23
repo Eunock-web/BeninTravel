@@ -2,6 +2,7 @@ import { createContext, useContext, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import voyagesData from "../VoyagesData";
 import { useVoyageFilters } from "../hooks/useVoyageFilters";
+import { TAX_RATE } from "../constants";
 import type { VoyageWithMeta } from "../hooks/useVoyageFilters";
 
 type ReservationPayload = {
@@ -23,6 +24,9 @@ type CartItem = {
 
 type ReservationState = ReservationPayload & {
     confirmed: boolean;
+    bookingNumber: string;
+    subTotal: number;
+    taxes: number;
     total: number;
     voyage: VoyageWithMeta | null;
 };
@@ -40,6 +44,7 @@ type VoyageContextType = {
     selectVoyage: (id: number) => void;
     reservation: ReservationState;
     confirmReservation: (payload: ReservationPayload) => void;
+    removeFromCart: (id: number) => void;
     cartItems: CartItem[];
     isShopOpen: boolean;
     closeShop: () => void;
@@ -73,8 +78,9 @@ const voyageTypes: Record<number, string> = {
 const normalizeVoyages = (): VoyageWithMeta[] => {
     return voyagesData.map((voyage: VoyageWithMeta) => {
         const rating = Number.parseFloat(voyage.Avis?.split("/")[0] || "0") || 0;
+        const reviewCount = Number.parseInt(/\((\d+)\)/.exec(voyage.Avis ?? "")?.[1] ?? "0", 10) || 0;
         const travelType = voyageTypes[voyage.IdVoyage] ?? "Autre";
-        return { ...voyage, rating, travelType };
+        return { ...voyage, rating, reviewCount, travelType };
     });
 };
 
@@ -95,7 +101,10 @@ export function VoyageProvider({ children }: { children: ReactNode }) {
         travelers: 1,
         voyage: selectedVoyage ?? null,
         confirmed: false,
-        total: selectedVoyage?.Prix ?? 0,
+        bookingNumber: "",
+        subTotal: 0,
+        taxes: 0,
+        total: 0,
     });
 
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -110,14 +119,19 @@ export function VoyageProvider({ children }: { children: ReactNode }) {
         if (!voyage) return;
 
         const travelers = payload.travelers || 1;
-        const total = voyage.Prix * travelers;
+        const subTotal = voyage.Prix * travelers;
+        const taxes = Math.round(subTotal * TAX_RATE);
+        const bookingNumber = `BN-${Math.floor(1_000_000 + Math.random() * 9_000_000)}`;
 
         setReservation({
             ...payload,
             voyage,
             travelers,
             confirmed: true,
-            total,
+            bookingNumber,
+            subTotal,
+            taxes,
+            total: subTotal + taxes,
         });
 
         setCartItems([
@@ -134,6 +148,10 @@ export function VoyageProvider({ children }: { children: ReactNode }) {
         setIsShopOpen(true);
     };
 
+    const removeFromCart = (id: number) => {
+        setCartItems((items) => items.filter((item) => item.id !== id));
+    };
+
     const value: VoyageContextType = {
         voyages,
         filteredVoyages: filtersApi.filteredVoyages,
@@ -147,6 +165,7 @@ export function VoyageProvider({ children }: { children: ReactNode }) {
         selectVoyage,
         reservation,
         confirmReservation,
+        removeFromCart,
         cartItems,
         isShopOpen,
         closeShop: () => setIsShopOpen(false),
@@ -162,8 +181,3 @@ export function useVoyageContext() {
     }
     return ctx;
 }
-
-
-
-
-

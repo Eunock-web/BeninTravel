@@ -12,6 +12,7 @@ export type VoyageWithMeta = {
     GaleriesDImages: string[];
     Inclusions?: string;
     rating: number;
+    reviewCount: number;
     travelType: string;
 };
 
@@ -21,6 +22,7 @@ export type FiltersState = {
     types: Set<string>;
     minRating: number;
     minTravelers: number;
+    departAfter: string;
 };
 
 export function useVoyageFilters(voyages: VoyageWithMeta[]) {
@@ -35,6 +37,7 @@ export function useVoyageFilters(voyages: VoyageWithMeta[]) {
         types: new Set<string>(),
         minRating: 0,
         minTravelers: 1,
+        departAfter: "",
     });
 
     const availableTypes = useMemo(() => Array.from(new Set(voyages.map((v) => v.travelType))), [voyages]);
@@ -55,7 +58,9 @@ export function useVoyageFilters(voyages: VoyageWithMeta[]) {
 
             const matchesTravelers = voyage.NombresDeVoyageurs >= filters.minTravelers;
 
-            return matchesSearch && matchesPrice && matchesType && matchesRating && matchesTravelers;
+            const matchesDate = !filters.departAfter || voyage.DateDeDepart >= filters.departAfter;
+
+            return matchesSearch && matchesPrice && matchesType && matchesRating && matchesTravelers && matchesDate;
         });
     }, [filters, voyages]);
 
@@ -85,6 +90,7 @@ export function useVoyageFilters(voyages: VoyageWithMeta[]) {
             types: new Set<string>(),
             minRating: 0,
             minTravelers: 1,
+            departAfter: "",
         });
     };
 

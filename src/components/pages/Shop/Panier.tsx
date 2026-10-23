@@ -1,4 +1,5 @@
 import { Trash2 } from "lucide-react";
+import SafeImage from "../../Utils/SafeImage";
 
 type PanierProps = {
     title: string;
@@ -7,15 +8,16 @@ type PanierProps = {
     image?: string;
     departDate?: string;
     returnDate?: string;
+    onRemove?: () => void;
 };
 
-function Panier({ title, unitPrice, travelers, image, departDate, returnDate }: PanierProps){
+function Panier({ title, unitPrice, travelers, image, departDate, returnDate, onRemove }: PanierProps){
     const total = unitPrice * travelers;
     return (
         <div className="  grid grid-cols-1 md:grid-cols-2 gap-2 border border-gray-200 p-3 rounded-xl shadow-sm ">
             <div className=" flex flex-row gap-3 ">
                 {image ? (
-                    <img src={image} alt={title} className=" w-25 h-25 rounded-xl object-cover " />
+                    <SafeImage src={image} alt={title} className=" w-25 h-25 rounded-xl object-cover " />
                 ) : (
                     <div className="w-25 h-25 rounded-xl bg-gray-200" />
                 )}
@@ -31,7 +33,9 @@ function Panier({ title, unitPrice, travelers, image, departDate, returnDate }: 
                 </div>
             </div>
             <div className=" relative justify-items-end">
-                <Trash2 size={ 24 } className=" text-red-400  " />
+                <button type="button" onClick={onRemove} aria-label="Retirer du panier" className=" hover:cursor-pointer ">
+                    <Trash2 size={ 24 } className=" text-red-400  " />
+                </button>
             </div>
         </div>
     )
